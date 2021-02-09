@@ -18,7 +18,8 @@
   },
   "homepage": "https://github.com/infinityakash/E-Commerce-Website#readme",
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "redux-thunk": "^2.3.0"
   },
   "devDependencies": {
     "eslint": "^7.19.0",
