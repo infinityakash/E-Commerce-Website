@@ -80,6 +80,9 @@ button {
   background-color: #f8f8f8;
   cursor: pointer;
 }
+input:hover,
+select:hover,
+textarea:hover,
 button:hover {
   border: 0.1rem #404040 solid;
 }
@@ -159,4 +162,16 @@ margin: 0.1rem;
 .danger {
   color: #a02020;
 }
-
+.alert {
+  padding: 1rem;
+  border: 0.1rem solid transparent;
+  border-radius: 0.5rem;
+}
+.alert-info {
+  color: #2020a0;
+  background-color: #e0e0ff;
+}
+.alert-danger {
+  color: #a02020;
+  background-color: #ffe0e0;
+}
