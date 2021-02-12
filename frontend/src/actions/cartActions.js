@@ -14,5 +14,6 @@ export const addToCart = (productId, qty) => async (dispatch, getState) => {
       qty,
     },
   });
+  // For not loosing data upon refresh of screen
   localStorage.setItem('cartItems', JSON.stringify(getState().cart.cartItems));
 };
