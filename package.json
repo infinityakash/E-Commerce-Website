@@ -18,7 +18,11 @@
   },
   "homepage": "https://github.com/infinityakash/E-Commerce-Website#readme",
   "dependencies": {
+    "bcrypt": "^5.0.0",
+    "bcryptjs": "^2.4.3",
     "express": "^4.17.1",
+    "express-async-handler": "^1.1.4",
+    "mongoose": "^5.11.15",
     "redux-thunk": "^2.3.0"
   },
   "devDependencies": {

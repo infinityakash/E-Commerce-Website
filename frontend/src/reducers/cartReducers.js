@@ -1,4 +1,4 @@
-import { CART_ADD_ITEM } from '../constants/cartConstants';
+import { CART_ADD_ITEM , CART_REMOVE_ITEM } from '../constants/cartConstants';
 
 export const cartReducer = (state = { cartItems: [] }, action) => {
   switch (action.type) {
@@ -14,9 +14,15 @@ export const cartReducer = (state = { cartItems: [] }, action) => {
           ),
         };
       } else { // Product is new and does not exist in cart item
-        return { ...state, cartItems: [...state.cartItems, item] // Concatenates the items 
+        return {
+          ...state, cartItems: [...state.cartItems, item] // Concatenates the items 
         };
       }
+    case CART_REMOVE_ITEM:
+      return {
+        ...state,
+        cartItems: state.cartItems.filter((x) => x.product !== action.payload),  // Filtering items in action.payload
+      };
     default:
       return state;
   }
