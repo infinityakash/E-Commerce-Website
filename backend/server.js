@@ -3,6 +3,7 @@ import express from 'express';
 import userRouter from './routers/userRouter.js';
 import mongoose from 'mongoose';
 import productRouter from './routers/productRouter.js';
+import orderRouter from './routers/orderRouter.js';
 
 const app = express();
 // New middle ware to parse json in the body of request
@@ -33,6 +34,7 @@ mongoose.connect(process.env.MONGODB_URL || 'mongodb://localhost/skymart', {
 
 app.use('/api/users', userRouter);
 app.use('/api/products', productRouter);
+app.use('/api/orders', orderRouter);
 app.get('/', (req, res) => {
   res.send('Server is ready');
 });
