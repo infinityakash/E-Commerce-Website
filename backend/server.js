@@ -5,6 +5,9 @@ import mongoose from 'mongoose';
 import productRouter from './routers/productRouter.js';
 
 const app = express();
+// New middle ware to parse json in the body of request
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 // connection to mongodb
 // The connection is made parameterized
 mongoose.connect(process.env.MONGODB_URL || 'mongodb://localhost/skymart', {
