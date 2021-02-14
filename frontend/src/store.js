@@ -4,6 +4,7 @@ import { cartReducer } from './reducers/cartReducers';
 import {
   productDetailsReducer,
   productListReducer,
+  orderPayReducer,
 } from './reducers/productReducers';
 import { userSigninReducer, userRegisterReducer } from './reducers/userReducers';
 import { orderCreateReducer,
@@ -37,6 +38,7 @@ const reducer = combineReducers({
   userRegister: userRegisterReducer,
   orderCreate: orderCreateReducer,
   orderDetails: orderDetailsReducer,
+  orderPay: orderPayReducer,
 });
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(
