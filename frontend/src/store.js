@@ -4,11 +4,15 @@ import { cartReducer } from './reducers/cartReducers';
 import {
   productDetailsReducer,
   productListReducer,
-  orderPayReducer,
+  
+  
 } from './reducers/productReducers';
 import { userSigninReducer, userRegisterReducer } from './reducers/userReducers';
 import { orderCreateReducer,
-         orderDetailsReducer, } from './reducers/orderReducers';
+         orderDetailsReducer,
+         orderPayReducer,
+         // For Order History 
+         orderMineListReducer,} from './reducers/orderReducers';
 // const initialState = {};
 // const reducer = (state,action) => {
 //     return {products:data.products};
@@ -39,6 +43,7 @@ const reducer = combineReducers({
   orderCreate: orderCreateReducer,
   orderDetails: orderDetailsReducer,
   orderPay: orderPayReducer,
+  orderMineList: orderMineListReducer, // Order History
 });
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(
