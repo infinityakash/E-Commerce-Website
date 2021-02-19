@@ -4,6 +4,9 @@ import userRouter from './routers/userRouter.js';
 import mongoose from 'mongoose';
 import productRouter from './routers/productRouter.js';
 import orderRouter from './routers/orderRouter.js';
+import path from 'path';
+import dotenv from 'dotenv';
+import uploadRouter from './routers/uploadRouter.js';
 
 const app = express();
 // New middle ware to parse json in the body of request
@@ -31,13 +34,17 @@ mongoose.connect(process.env.MONGODB_URL || 'mongodb://localhost/skymart', {
 //   res.send(data.products);
 // });
 
-
+app.use('/api/uploads', uploadRouter);
 app.use('/api/users', userRouter);
 app.use('/api/products', productRouter);
 app.use('/api/orders', orderRouter);
 app.get('/api/config/paypal', (req, res) => {
   res.send(process.env.PAYPAL_CLIENT_ID || 'sb');
 });
+// Upload Product Image(40)
+const __dirname = path.resolve();
+app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
+
 app.get('/', (req, res) => {
   res.send('Server is ready');
 });

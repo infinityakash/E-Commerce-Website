@@ -26,6 +26,7 @@
     "jsonwebtoken": "^8.5.1",
     "killall": "^1.0.4",
     "mongoose": "^5.11.15",
+    "multer": "^1.4.2",
     "redux-thunk": "^2.3.0"
   },
   "devDependencies": {
