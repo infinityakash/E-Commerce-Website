@@ -7,6 +7,7 @@ import {
   productCreateReducer,
   productUpdateReducer, 
   productDeleteReducer,
+  
 } from './reducers/productReducers';
 import { userSigninReducer,
          userRegisterReducer,
@@ -19,7 +20,10 @@ import { orderCreateReducer,
          // For Order History 
          orderMineListReducer,
         // List Order(42)
-         orderListReducer,} from './reducers/orderReducers';
+         orderListReducer,
+         orderDeleteReducer,
+         orderDeliverReducer,} from './reducers/orderReducers';
+
 // const initialState = {};
 // const reducer = (state,action) => {
 //     return {products:data.products};
@@ -57,6 +61,8 @@ const reducer = combineReducers({
   productUpdate: productUpdateReducer,
   productDelete: productDeleteReducer,
   orderList: orderListReducer,
+  orderDelete: orderDeleteReducer,
+  orderDeliver: orderDeliverReducer,
 });
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(
