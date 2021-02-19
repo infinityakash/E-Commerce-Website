@@ -19,7 +19,7 @@
   },
   "homepage": "https://github.com/infinityakash/E-Commerce-Website#readme",
   "dependencies": {
-    "bcrypt": "^5.0.0",
+    "bcrypt-nodejs": "0.0.3",
     "bcryptjs": "^2.4.3",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
@@ -39,5 +39,8 @@
     "eslint-plugin-react": "^7.22.0",
     "nodemon": "^2.0.7"
   },
-  "engines": {"node":"14.15.4", "npm": "6.14.10"}
+  "engines": {
+    "node": "14.15.4",
+    "npm": "6.14.10"
+  }
 }
