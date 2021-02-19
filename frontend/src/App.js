@@ -20,6 +20,7 @@ import PrivateRoute from './components/PrivateRoute';
 // List Products
 import AdminRoute from './components/AdminRoute';
 import ProductListScreen from './screens/ProductListScreen';
+import ProductEditScreen from './screens/ProductEditScreen';
 
 function App() {
   const cart = useSelector((state) => state.cart);
@@ -99,6 +100,12 @@ function App() {
           {/* <Route path="/product/:id" component={ProductScreen}></Route> */}
           {/*  Creation of Product Functionality */}
           <Route path="/product/:id" component={ProductScreen} exact></Route>
+          {/* Edit product screen */}
+          <Route
+            path="/product/:id/edit"
+            component={ProductEditScreen}
+            exact
+          ></Route>
           <Route path="/signin" component={SigninScreen}></Route>
           <Route path="/register" component={RegisterScreen}></Route>
           <Route path="/shipping" component={ShippingAddressScreen}></Route>
