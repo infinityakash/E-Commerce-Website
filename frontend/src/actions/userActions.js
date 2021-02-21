@@ -26,6 +26,11 @@ import {
 
   USER_UPDATE_SUCCESS,
   USER_UPDATE_FAIL,
+
+  // Top Selling (Carousal)(53)
+  USER_TOPSELLERS_LIST_REQUEST,
+  USER_TOPSELLERS_LIST_SUCCESS,
+  USER_TOPSELLERS_LIST_FAIL,
 } from '../constants/userConstants';
 
 // Register block
@@ -176,5 +181,19 @@ export const updateUser = (user) => async (dispatch, getState) => {
         ? error.response.data.message
         : error.message;
     dispatch({ type: USER_UPDATE_FAIL, payload: message });
+  }
+};
+// Top Selling (Carousal)(53)
+export const listTopSellers = () => async (dispatch) => {
+  dispatch({ type: USER_TOPSELLERS_LIST_REQUEST });
+  try {
+    const { data } = await Axios.get('/api/users/top-sellers');
+    dispatch({ type: USER_TOPSELLERS_LIST_SUCCESS, payload: data });
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message;
+    dispatch({ type: USER_TOPSELLERS_LIST_FAIL, payload: message });
   }
 };
