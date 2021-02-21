@@ -11,14 +11,21 @@ productRouter.get(
   expressAsyncHandler(async (req, res) => {
   // Seller View (51)
     // const products = await Product.find({});
+    const name = req.query.name || '';
     const seller = req.query.seller || '';
+    const nameFilter = name ? { name: { $regex: name, $options: 'i' } } : {};
     const sellerFilter = seller ? { seller } : {};
     // Seller Page(52)
     
-    const products = await Product.find({ ...sellerFilter }).populate(
-      'seller',
-      'seller.name seller.logo'
-    );
+    // const products = await Product.find({ ...sellerFilter }).populate(
+    //   'seller',
+    //   'seller.name seller.logo'
+    // );
+
+    const products = await Product.find({
+      ...sellerFilter,
+      ...nameFilter,
+    }).populate('seller', 'seller.name seller.logo');
     // End Seller Page (51)
     // const products = await Product.find({ ...sellerFilter });
     // End seller view

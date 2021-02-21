@@ -25,14 +25,21 @@ import {
 } from '../constants/productConstants';
 
 // export const listProducts = () => async (dispatch) => {
-export const listProducts = ({ seller = '' }) => async (dispatch) => {  // Seller View (51)
+// export const listProducts = ({ seller = '' }) => async (dispatch) => {  // Seller View (51)
+
+export const listProducts = ({ seller = '', name = '' }) => async ( // Search Box
+    dispatch
+  ) => {  
   dispatch({
     type: PRODUCT_LIST_REQUEST,
   });
   try {
     //   Fetching data from backend
     // const { data } = await Axios.get('/api/products'); //sending an ajax request
-    const { data } = await Axios.get(`/api/products?seller=${seller}`); // Seller View (51)
+    // const { data } = await Axios.get(`/api/products?seller=${seller}`); // Seller View (51)
+    const { data } = await Axios.get( //search box(51)
+      `/api/products?seller=${seller}&name=${name}`
+    );
     dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data }); //type of this action is success and then payload is set to data
   } catch (error) {
     dispatch({ type: PRODUCT_LIST_FAIL, payload: error.message });

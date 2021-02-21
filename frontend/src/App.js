@@ -30,6 +30,9 @@ import UserEditScreen from './screens/UserEditScreen';
 import SellerRoute from './components/SellerRoute';
 // Seller Page(52)
 import SellerScreen from './screens/SellerScreen';
+
+import SearchBox from './components/SearchBox';
+import SearchScreen from './screens/SearchScreen';
 function App() {
   const cart = useSelector((state) => state.cart);
   const { cartItems } = cart;
@@ -47,6 +50,14 @@ function App() {
         <header className="row">
           <div>
             <Link className="brand" to="/">Skymart</Link>
+          </div>
+          {/* Search Box search(55) */}
+          <div>
+            <Route
+              render={({ history }) => (
+                <SearchBox history={history}></SearchBox>
+              )}
+            ></Route>
           </div>
           <div>
             {/* <Link to ="/cart">Cart</Link> */}
@@ -139,6 +150,11 @@ function App() {
           <Route path="/placeorder" component={PlaceOrderScreen}></Route>
           <Route path="/order/:id" component={OrderScreen}></Route>
           <Route path="/orderhistory" component={OrderHistoryScreen}></Route>
+          <Route
+            path="/search/name/:name?"
+            component={SearchScreen}
+            exact
+          ></Route>
           {/* <Route path="/profile" component={ProfileScreen}></Route> */}
           <PrivateRoute
             path="/profile"
