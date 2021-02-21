@@ -26,7 +26,10 @@ import OrderListScreen from './screens/OrderListScreen';
 // List Users(48)
 import UserListScreen from './screens/UserListScreen';
 import UserEditScreen from './screens/UserEditScreen';
-
+// Seller View (51)
+import SellerRoute from './components/SellerRoute';
+// Seller Page(52)
+import SellerScreen from './screens/SellerScreen';
 function App() {
   const cart = useSelector((state) => state.cart);
   const { cartItems } = cart;
@@ -76,6 +79,22 @@ function App() {
             ) : (
                 <Link to="/signin">Sign In</Link>
               )}
+              {/* // Seller View (51) */}
+              {userInfo && userInfo.isSeller && (
+              <div className="dropdown">
+                <Link to="#admin">
+                  Seller <i className="fa fa-caret-down"></i>
+                </Link>
+                <ul className="dropdown-content">
+                  <li>
+                    <Link to="/productlist/seller">Products</Link>
+                  </li>
+                  <li>
+                    <Link to="/orderlist/seller">Orders</Link>
+                  </li>
+                </ul>
+              </div>
+            )} {/* // End of Seller View (51) */}
 {/* Admin Screen top right end */}
             {userInfo && userInfo.isAdmin && (
               <div className="dropdown">
@@ -101,8 +120,10 @@ function App() {
           </div>
         </header>
         <main>
+          
+          <Route path="/seller/:id" component={SellerScreen}></Route>
           <Route path="/cart/:id?" component={CartScreen}></Route>
-          {/* <Route path="/product/:id" component={ProductScreen}></Route> */}
+        
           {/*  Creation of Product Functionality */}
           <Route path="/product/:id" component={ProductScreen} exact></Route>
           {/* Edit product screen */}
@@ -126,12 +147,12 @@ function App() {
           {/* Listing Products */}
            <AdminRoute
             path="/productlist"
-            component={ProductListScreen}
+            component={ProductListScreen} exact
           ></AdminRoute>
           {/* // List Order(42) */}
           <AdminRoute
             path="/orderlist"
-            component={OrderListScreen}
+            component={OrderListScreen} exact
           ></AdminRoute>
           
           <AdminRoute path="/userlist" component={UserListScreen}></AdminRoute>
@@ -140,6 +161,15 @@ function App() {
             path="/user/:id/edit"
             component={UserEditScreen}
           ></AdminRoute>
+          
+          <SellerRoute
+            path="/productlist/seller"
+            component={ProductListScreen}
+          ></SellerRoute>
+          <SellerRoute
+            path="/orderlist/seller"
+            component={OrderListScreen}
+          ></SellerRoute>
           <Route path="/" component={HomeScreen} exact></Route>
 
         </main>
