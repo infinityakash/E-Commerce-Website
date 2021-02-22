@@ -41,6 +41,11 @@ app.use('/api/orders', orderRouter);
 app.get('/api/config/paypal', (req, res) => {
   res.send(process.env.PAYPAL_CLIENT_ID || 'sb');
 });
+// Google Map(59)
+app.get('/api/config/google', (req, res) => {
+  res.send(process.env.GOOGLE_API_KEY || '');
+});// End of Google Map(59)
+
 // Upload Product Image(40)
 const __dirname = path.resolve();
 app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
