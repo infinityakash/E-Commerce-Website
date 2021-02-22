@@ -1,6 +1,6 @@
 // import logo from './logo.svg';
 // import './App.css';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { BrowserRouter, Route } from 'react-router-dom';
@@ -33,8 +33,16 @@ import SellerScreen from './screens/SellerScreen';
 
 import SearchBox from './components/SearchBox';
 import SearchScreen from './screens/SearchScreen';
+
+// Filter feature(56)
+import { listProductCategories } from './actions/productActions';
+import LoadingBox from './components/LoadingBox';
+import MessageBox from './components/MessageBox';
+
+
 function App() {
   const cart = useSelector((state) => state.cart);
+  const [sidebarIsOpen, setSidebarIsOpen] = useState(false);
   const { cartItems } = cart;
   // for signin
   const userSignin = useSelector((state) => state.userSignin);
@@ -43,12 +51,32 @@ function App() {
   const signoutHandler = () => {
     dispatch(signout());
   };
+  // Filter feature(56)
+  const productCategoryList = useSelector((state) => state.productCategoryList);
+  const {
+    loading: loadingCategories,
+    error: errorCategories,
+    categories,
+  } = productCategoryList;
+  useEffect(() => {
+    dispatch(listProductCategories());
+  }, [dispatch]);
+  // End of filter feature
 
   return (
     <BrowserRouter>
       <div className="grid-container">
         <header className="row">
           <div>
+            {/* // Filter feature(56) */}
+            <button
+              type="button"
+              className="open-sidebar"
+              onClick={() => setSidebarIsOpen(true)}
+            >
+              <i className="fa fa-bars"></i>
+            </button>
+            {/* // End of filter feature */}
             <Link className="brand" to="/">Skymart</Link>
           </div>
           {/* Search Box search(55) */}
@@ -90,8 +118,8 @@ function App() {
             ) : (
                 <Link to="/signin">Sign In</Link>
               )}
-              {/* // Seller View (51) */}
-              {userInfo && userInfo.isSeller && (
+            {/* // Seller View (51) */}
+            {userInfo && userInfo.isSeller && (
               <div className="dropdown">
                 <Link to="#admin">
                   Seller <i className="fa fa-caret-down"></i>
@@ -106,7 +134,7 @@ function App() {
                 </ul>
               </div>
             )} {/* // End of Seller View (51) */}
-{/* Admin Screen top right end */}
+            {/* Admin Screen top right end */}
             {userInfo && userInfo.isAdmin && (
               <div className="dropdown">
                 <Link to="#admin">
@@ -130,11 +158,43 @@ function App() {
             )}
           </div>
         </header>
+        {/* // Filter feature(56) */}
+        <aside className={sidebarIsOpen ? 'open' : ''}>
+          <ul className="categories">
+            <li>
+              <strong>Categories</strong>
+              <button
+                onClick={() => setSidebarIsOpen(false)}
+                className="close-sidebar"
+                type="button"
+              >
+                <i className="fa fa-close"></i>
+              </button>
+            </li>
+            {loadingCategories ? (
+              <LoadingBox></LoadingBox>
+            ) : errorCategories ? (
+              <MessageBox variant="danger">{errorCategories}</MessageBox>
+            ) : (
+                  categories.map((c) => (
+                    <li key={c}>
+                      <Link
+                        to={`/search/category/${c}`}
+                        onClick={() => setSidebarIsOpen(false)}
+                      >
+                        {c}
+                      </Link>
+                    </li>
+                  ))
+                )}
+          </ul>
+        </aside>
+        {/* // End of filter feature */}
         <main>
-          
+
           <Route path="/seller/:id" component={SellerScreen}></Route>
           <Route path="/cart/:id?" component={CartScreen}></Route>
-        
+
           {/*  Creation of Product Functionality */}
           <Route path="/product/:id" component={ProductScreen} exact></Route>
           {/* Edit product screen */}
@@ -155,13 +215,25 @@ function App() {
             component={SearchScreen}
             exact
           ></Route>
+          {/* // Filter feature(56) */}
+          <Route
+            path="/search/category/:category"
+            component={SearchScreen}
+            exact
+          ></Route>
+          <Route
+            path="/search/category/:category/name/:name"
+            component={SearchScreen}
+            exact
+          ></Route>
+          {/* // End of filter feature */}
           {/* <Route path="/profile" component={ProfileScreen}></Route> */}
           <PrivateRoute
             path="/profile"
             component={ProfileScreen}
           ></PrivateRoute>
           {/* Listing Products */}
-           <AdminRoute
+          <AdminRoute
             path="/productlist"
             component={ProductListScreen} exact
           ></AdminRoute>
@@ -170,14 +242,14 @@ function App() {
             path="/orderlist"
             component={OrderListScreen} exact
           ></AdminRoute>
-          
+
           <AdminRoute path="/userlist" component={UserListScreen}></AdminRoute>
-{/* // Edit User(50) */}
+          {/* // Edit User(50) */}
           <AdminRoute
             path="/user/:id/edit"
             component={UserEditScreen}
           ></AdminRoute>
-          
+
           <SellerRoute
             path="/productlist/seller"
             component={ProductListScreen}

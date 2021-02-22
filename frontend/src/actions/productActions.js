@@ -22,14 +22,24 @@ import {
   PRODUCT_DELETE_REQUEST,
   PRODUCT_DELETE_FAIL,
   PRODUCT_DELETE_SUCCESS,
+
+  // Filter feature(56)
+  PRODUCT_CATEGORY_LIST_SUCCESS,
+  PRODUCT_CATEGORY_LIST_REQUEST,
+  PRODUCT_CATEGORY_LIST_FAIL,
 } from '../constants/productConstants';
 
 // export const listProducts = () => async (dispatch) => {
 // export const listProducts = ({ seller = '' }) => async (dispatch) => {  // Seller View (51)
 
-export const listProducts = ({ seller = '', name = '' }) => async ( // Search Box
-    dispatch
-  ) => {  
+// export const listProducts = ({ seller = '', name = '' }) => async ( // Search Box
+//     dispatch
+//   ) => {  
+export const listProducts = ({
+  seller = '',
+  name = '',
+  category = '',
+}) => async (dispatch) => {
   dispatch({
     type: PRODUCT_LIST_REQUEST,
   });
@@ -38,7 +48,7 @@ export const listProducts = ({ seller = '', name = '' }) => async ( // Search Bo
     // const { data } = await Axios.get('/api/products'); //sending an ajax request
     // const { data } = await Axios.get(`/api/products?seller=${seller}`); // Seller View (51)
     const { data } = await Axios.get( //search box(51)
-      `/api/products?seller=${seller}&name=${name}`
+      `/api/products?seller=${seller}&name=${name}&category=${category}`
     );
     dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data }); //type of this action is success and then payload is set to data
   } catch (error) {
@@ -123,5 +133,18 @@ export const deleteProduct = (productId) => async (dispatch, getState) => {
         ? error.response.data.message
         : error.message;
     dispatch({ type: PRODUCT_DELETE_FAIL, payload: message });
+  }
+};
+
+// Filter feature(56)
+export const listProductCategories = () => async (dispatch) => {
+  dispatch({
+    type: PRODUCT_CATEGORY_LIST_REQUEST,
+  });
+  try {
+    const { data } = await Axios.get(`/api/products/categories`);
+    dispatch({ type: PRODUCT_CATEGORY_LIST_SUCCESS, payload: data });
+  } catch (error) {
+    dispatch({ type: PRODUCT_CATEGORY_LIST_FAIL, payload: error.message });
   }
 };

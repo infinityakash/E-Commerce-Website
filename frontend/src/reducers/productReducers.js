@@ -22,6 +22,11 @@ const {
     PRODUCT_DELETE_SUCCESS,
     PRODUCT_DELETE_FAIL,
     PRODUCT_DELETE_RESET,
+
+    // Filter feature(56)
+    PRODUCT_CATEGORY_LIST_REQUEST,
+    PRODUCT_CATEGORY_LIST_SUCCESS,
+    PRODUCT_CATEGORY_LIST_FAIL,
 } = require('../constants/productConstants');
 
 export const productListReducer = (
@@ -93,6 +98,22 @@ export const productDeleteReducer = (state = {}, action) => {
             return { loading: false, error: action.payload };
         case PRODUCT_DELETE_RESET:
             return {};
+        default:
+            return state;
+    }
+};
+// Filter feature(56)
+export const productCategoryListReducer = (
+    state = { loading: true, products: [] },
+    action
+) => {
+    switch (action.type) {
+        case PRODUCT_CATEGORY_LIST_REQUEST:
+            return { loading: true };
+        case PRODUCT_CATEGORY_LIST_SUCCESS:
+            return { loading: false, categories: action.payload };
+        case PRODUCT_CATEGORY_LIST_FAIL:
+            return { loading: false, error: action.payload };
         default:
             return state;
     }
