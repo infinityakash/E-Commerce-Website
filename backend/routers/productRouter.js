@@ -13,6 +13,17 @@ productRouter.get(
     // const products = await Product.find({});
     const name = req.query.name || '';
     const seller = req.query.seller || '';
+    // Price Filter(57)
+    const order = req.query.order || '';
+    const min =
+      req.query.min && Number(req.query.min) !== 0 ? Number(req.query.min) : 0;
+    const max =
+      req.query.max && Number(req.query.max) !== 0 ? Number(req.query.max) : 0;
+    const rating =
+      req.query.rating && Number(req.query.rating) !== 0
+        ? Number(req.query.rating)
+        : 0;
+    // End of Price Filter    
     const nameFilter = name ? { name: { $regex: name, $options: 'i' } } : {};
     const sellerFilter = seller ? { seller } : {};
     // Seller Page(52)
@@ -23,13 +34,31 @@ productRouter.get(
     // );
     const category = req.query.category || '';
     const categoryFilter = category ? { category } : {};
+
+    // Price Filter(57)
+    const priceFilter = min && max ? { price: { $gte: min, $lte: max } } : {};
+    const ratingFilter = rating ? { rating: { $gte: rating } } : {};
+    const sortOrder =
+      order === 'lowest'
+        ? { price: 1 }
+        : order === 'highest'
+        ? { price: -1 }
+        : order === 'toprated'
+        ? { rating: -1 }
+        : { _id: -1 };
+    // End of Price Filter
     
 
     const products = await Product.find({
       ...sellerFilter,
       ...nameFilter,
       ...categoryFilter,
-    }).populate('seller', 'seller.name seller.logo');
+    // }).populate('seller', 'seller.name seller.logo');
+      ...priceFilter,
+      ...ratingFilter,
+    })
+      .populate('seller', 'seller.name seller.logo')
+      .sort(sortOrder);
     // End Seller Page (51)
     // const products = await Product.find({ ...sellerFilter });
     // End seller view

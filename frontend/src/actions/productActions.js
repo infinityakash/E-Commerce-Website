@@ -39,6 +39,10 @@ export const listProducts = ({
   seller = '',
   name = '',
   category = '',
+  order = '',
+  min = 0,
+  max = 0,
+  rating = 0,
 }) => async (dispatch) => {
   dispatch({
     type: PRODUCT_LIST_REQUEST,
@@ -48,7 +52,7 @@ export const listProducts = ({
     // const { data } = await Axios.get('/api/products'); //sending an ajax request
     // const { data } = await Axios.get(`/api/products?seller=${seller}`); // Seller View (51)
     const { data } = await Axios.get( //search box(51)
-      `/api/products?seller=${seller}&name=${name}&category=${category}`
+      `/api/products?seller=${seller}&name=${name}&category=${category}&min=${min}&max=${max}&rating=${rating}&order=${order}`
     );
     dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data }); //type of this action is success and then payload is set to data
   } catch (error) {

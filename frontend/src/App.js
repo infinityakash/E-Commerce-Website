@@ -226,6 +226,13 @@ function App() {
             component={SearchScreen}
             exact
           ></Route>
+          {/* // Price Filter(57) */}
+          <Route
+            path="/search/category/:category/name/:name/min/:min/max/:max/rating/:rating/order/:order"
+            component={SearchScreen}
+            exact
+          ></Route>
+          {/* // End of Price Filter */}
           {/* // End of filter feature */}
           {/* <Route path="/profile" component={ProfileScreen}></Route> */}
           <PrivateRoute
