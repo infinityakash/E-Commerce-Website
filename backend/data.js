@@ -17,14 +17,14 @@ const data = {
         numReviews: 120,
       },
     },
-    {
-      name: 'Ajay',
-      email: 'user@example.com',
-      password: bcrypt.hashSync('1234', 8),
-      isAdmin: false,
-      isSeller: false,
-      seller:{}
-    },
+    // {
+    //   name: 'Ajay',
+    //   email: 'user@example.com',
+    //   password: bcrypt.hashSync('1234', 8),
+    //   isAdmin: false,
+    //   isSeller: false,
+    //   seller:{}
+    // },
   ],
     products: [
       {

@@ -8,15 +8,15 @@ import { generateToken, isAuth, isAdmin } from '../utils.js'; // User Router
 
 const userRouter = express.Router();
 // Top Selling (Carousal)(53)
-userRouter.get(
-  '/top-sellers',
-  expressAsyncHandler(async (req, res) => {
-    const topSellers = await User.find({ isSeller: true })
-      .sort({ 'seller.rating': -1 })
-      .limit(3);
-    res.send(topSellers);
-  })
-);
+// userRouter.get(
+//   '/top-sellers',
+//   expressAsyncHandler(async (req, res) => {
+//     const topSellers = await User.find({ isSeller: true })
+//       .sort({ 'seller.rating': -1 })
+//       .limit(3);
+//     res.send(topSellers);
+//   })
+// );
 
 userRouter.get(
   '/seed',
