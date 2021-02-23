@@ -8,6 +8,7 @@ import path from 'path';
 import dotenv from 'dotenv';
 import uploadRouter from './routers/uploadRouter.js';
 
+dotenv.config();
 const app = express();
 // New middle ware to parse json in the body of request
 app.use(express.json());
