@@ -1,5 +1,5 @@
 import express from 'express';
-// import data from './data.js';
+import data from './data.js';
 import userRouter from './routers/userRouter.js';
 import mongoose from 'mongoose';
 import productRouter from './routers/productRouter.js';
